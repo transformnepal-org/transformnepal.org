@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Digital Nepal Transformation</title>
+<!-- Plus Jakarta Sans as web fallback closest to PuHuiTi -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden}
+
+/* ─── FONT STACK
+   PuHuiTi loads if installed locally (Mac/Win).
+   Falls back to Plus Jakarta Sans (very close geometric warmth) from Google Fonts.
+────────────────────────────────────────────── */
+:root{
+  --sans: 'Alibaba PuHuiTi', 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --serif: 'Playfair Display', Georgia, serif;
+
+  /* Palette — warm light */
+  --cream:     #faf6f0;
+  --cream-mid: #f0e9df;
+  --cream-drk: #e4dbd0;
+  --ink:       #1a1612;
+  --ink-mid:   #352d25;
+  --ink-lt:    #6b5e52;
+  --ink-fnt:   #a09080;
+  --ink-gst:   #c4b8ac;
+  --red:       #ae2f1e;
+  --red-mid:   #c43828;
+  --red-lt:    #e8cec9;
+  --red-fnt:   #f5ecea;
+  --line:      #d8d0c4;
+}
+
+html,body{background:var(--cream);font-family:var(--sans)}
+
+/* ─── DECK ─── */
+.deck{width:100vw;height:100vh;position:relative;background:var(--cream)}
+.slide{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .48s cubic-bezier(.4,0,.2,1);
+}
+.slide.active{opacity:1;pointer-events:all}
+
+/* ─── BG VARIANTS ─── */
+.bw {background:linear-gradient(140deg,#faf6f0 55%,#f4ede3 100%)}
+.bs {background:linear-gradient(155deg,#f8f2eb 50%,#ede4d7 100%)}
+.bd {background:linear-gradient(130deg,#f2ebe0 35%,#e8ddd0 100%)}
+.bl {background:#fdfaf6}
+
+/* ─── MOUNTAINS ─── */
+.mtn{position:absolute;bottom:0;left:0;width:100%;pointer-events:none;opacity:.04}
+
+/* ─── GRAIN ─── */
+.grain{position:absolute;inset:0;pointer-events:none;opacity:.15;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E")}
+
+/* ─── VERTICAL LINE ─── */
+.vl{position:absolute;left:6.5vw;top:50%;transform:translateY(-50%);width:2px;border-radius:2px;
+  background:linear-gradient(to bottom,transparent,var(--red) 28%,var(--red-mid) 72%,transparent);
+  height:0;transition:height 1s cubic-bezier(.16,1,.3,1) .28s}
+.slide.active .vl{height:56vh}
+
+/* ─── CORNER MARK ─── */
+.cm{position:absolute;top:4vh;right:5vw;display:flex;align-items:center;gap:7px}
+.cd{width:7px;height:7px;border-radius:50%}
+.cd1{background:var(--red)}.cd2{background:var(--red-mid);opacity:.4}.cd3{background:var(--red-lt);opacity:.7}
+.cl-txt{font-family:var(--sans);font-size:clamp(9px,.78vw,11px);letter-spacing:4px;text-transform:uppercase;color:var(--ink-gst);font-weight:500}
+
+/* ─── SLIDE NUM ─── */
+.sn{position:absolute;bottom:4vh;right:5vw;font-family:var(--sans);font-size:clamp(9px,.82vw,11px);letter-spacing:3px;color:var(--line);text-transform:uppercase;font-weight:500}
+
+/* ─── LABEL ─── */
+.lbl{font-family:var(--sans);font-size:clamp(9px,.88vw,12px);font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:2.2vh}
+
+/* ─── HEADLINES — Playfair only ─── */
+.h1{font-family:var(--serif);font-size:clamp(34px,5.6vw,74px);font-weight:900;line-height:1.07;color:var(--ink);letter-spacing:-.02em}
+.h1 em{font-style:italic;font-weight:700;color:var(--ink-mid)}
+.h1 .r{color:var(--red)}
+.h2{font-family:var(--serif);font-size:clamp(26px,4vw,54px);font-weight:900;line-height:1.1;color:var(--ink);letter-spacing:-.02em}
+.h2 em{font-style:italic;font-weight:700;color:var(--ink-mid)}
+.h2 .r{color:var(--red)}
+
+/* ─── BODY — PuHuiTi shines here ─── */
+.body{font-family:var(--sans);font-size:clamp(13px,1.38vw,18px);font-weight:300;line-height:2;color:var(--ink-lt)}
+.body strong{color:var(--ink-mid);font-weight:500}
+.body .r{color:var(--red);font-weight:500}
+
+/* ─── SUBTEXT ─── */
+.sub{font-family:var(--sans);font-size:clamp(13px,1.3vw,17px);font-weight:300;line-height:1.9;color:var(--ink-lt)}
+.sub strong{color:var(--ink-mid);font-weight:500}
+
+/* ─── DIVIDER ─── */
+.div{height:1.5px;background:linear-gradient(to right,var(--red),transparent);margin-bottom:3vh;opacity:.5;width:0;transition:width .95s ease .32s}
+.slide.active .div{width:26vw}
+
+/* ─── FADE-UP ─── */
+.fu{opacity:0;transform:translateY(13px);transition:opacity .58s ease,transform .58s ease}
+.slide.active .fu{opacity:1;transform:translateY(0)}
+.slide.active .fu:nth-child(1){transition-delay:.58s}
+.slide.active .fu:nth-child(2){transition-delay:.75s}
+.slide.active .fu:nth-child(3){transition-delay:.9s}
+.slide.active .fu:nth-child(4){transition-delay:1.04s}
+.slide.active .fu:nth-child(5){transition-delay:1.17s}
+.slide.active .fu:nth-child(6){transition-delay:1.3s}
+.slide.active .fu:nth-child(7){transition-delay:1.43s}
+
+/* ─── LAYOUTS ─── */
+.ll{position:relative;left:10.5vw;max-width:62vw}
+.lc{position:relative;max-width:68vw;text-align:center}
+.lw{position:relative;left:10.5vw;max-width:80vw}
+
+/* ─── QUOTE ─── */
+.qt{margin-top:2.6vh;padding:1.6vh 1.8vw;border-left:3px solid var(--red);background:var(--red-fnt)}
+.qt p{font-family:var(--sans);font-size:clamp(13px,1.3vw,17px);font-style:italic;font-weight:400;color:var(--ink-mid);line-height:1.75}
+
+/* ─── PROBLEM LIST ─── */
+.pl{list-style:none;margin-top:2.4vh;display:flex;flex-direction:column;gap:.9vh}
+.pi{display:flex;align-items:flex-start;gap:1vw;padding:1.3vh 1.5vw;background:#fff;border:1px solid var(--line);border-radius:5px;border-left:3px solid var(--red-lt)}
+.pd{width:6px;height:6px;border-radius:50%;background:var(--red);margin-top:.5em;flex-shrink:0}
+.pt{font-family:var(--sans);font-size:clamp(12px,1.15vw,15px);color:var(--ink-lt);font-weight:300;line-height:1.65}
+.pt strong{color:var(--ink-mid);font-weight:500}
+
+/* ─── STAT CARDS ─── */
+.sr{display:flex;gap:1.6vw;margin-top:2.8vh}
+.sc{flex:1;padding:1.8vh 1.6vw;background:#fff;border:1px solid var(--line);border-radius:7px;border-top:2.5px solid var(--red)}
+.sn2{font-family:var(--serif);font-size:clamp(20px,2.6vw,40px);font-weight:900;color:var(--red);line-height:1}
+.sl{font-family:var(--sans);font-size:clamp(10px,.9vw,12px);color:var(--ink-fnt);margin-top:7px;font-weight:400;line-height:1.5}
+
+/* ─── COMPARE ─── */
+.cmp{display:grid;grid-template-columns:1fr 1px 1fr;margin-top:2.6vh;height:33vh}
+.cc{padding:1.8vh 2vw}
+.cc h4{font-family:var(--sans);font-size:clamp(11px,1.1vw,14px);font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-gst);margin-bottom:1.6vh}
+.cc.rt h4{color:var(--red)}
+.cdv{background:var(--line);width:1px}
+.ci{display:flex;align-items:flex-start;gap:.8vw;margin-bottom:1.2vh}
+.ci p{font-family:var(--sans);font-size:clamp(11px,1vw,14px);color:var(--ink-fnt);font-weight:300;line-height:1.55}
+.ci.rt p{color:var(--ink-mid)}
+.ck{font-size:11px;margin-top:2px;flex-shrink:0}
+
+/* ─── PILLS ─── */
+.pill{display:inline-block;padding:5px 14px;border-radius:20px;font-family:var(--sans);font-size:clamp(10px,.88vw,12px);font-weight:500;letter-spacing:.2px;margin-right:6px;margin-bottom:6px}
+.pr2{background:var(--red-fnt);color:var(--red);border:1px solid var(--red-lt)}
+.pg{background:var(--cream-mid);color:var(--ink-fnt);border:1px solid var(--line)}
+
+/* ─── FLOW ─── */
+.fl{display:flex;align-items:flex-start;gap:0;margin-top:2.8vh}
+.fs{display:flex;flex-direction:column;align-items:center;flex:1}
+.fn{font-family:var(--sans);font-size:clamp(9px,.72vw,10px);color:var(--red);letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:5px}
+.fb{padding:1.4vh .9vw;background:#fff;border:1px solid var(--line);border-radius:5px;text-align:center;width:100%;border-top:2px solid var(--red)}
+.ft{font-family:var(--sans);font-size:clamp(10px,.9vw,12px);font-weight:600;color:var(--ink-mid);line-height:1.35}
+.fc{font-family:var(--sans);font-size:clamp(9px,.75vw,10px);color:var(--ink-fnt);margin-top:4px;line-height:1.4;font-weight:300}
+.fa{color:var(--line);font-size:clamp(14px,1.6vw,24px);padding:0 .2vw;margin-top:3.2vh;flex-shrink:0}
+
+/* ─── PHASE CARDS ─── */
+.pcs{display:flex;gap:1.6vw;margin-top:2.8vh}
+.pc{flex:1;padding:2vh 1.5vw;background:#fff;border:1px solid var(--line);border-radius:7px;border-top:2px solid var(--red)}
+.pcn{font-family:var(--sans);font-size:clamp(9px,.78vw,11px);color:var(--red);letter-spacing:3px;text-transform:uppercase;font-weight:600;margin-bottom:.9vh}
+.pct{font-family:var(--sans);font-size:clamp(12px,1.15vw,16px);font-weight:600;color:var(--ink-mid);margin-bottom:.7vh;line-height:1.35}
+.pcd{font-family:var(--sans);font-size:clamp(11px,.92vw,13px);color:var(--ink-fnt);font-weight:300;line-height:1.65}
+
+/* ─── NAV ─── */
+.nav{position:fixed;bottom:3.5vh;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:1.6vw;z-index:100;
+  background:rgba(250,246,240,.9);backdrop-filter:blur(10px);
+  padding:8px 20px;border-radius:40px;border:1px solid var(--line)}
+.nb{width:34px;height:34px;border-radius:50%;background:transparent;border:1px solid var(--line);color:var(--ink-fnt);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s;user-select:none;font-family:var(--sans)}
+.nb:hover{background:var(--red-fnt);border-color:var(--red-lt);color:var(--red)}
+.nds{display:flex;gap:6px;align-items:center}
+.nd{width:5px;height:5px;border-radius:50%;background:var(--line);cursor:pointer;transition:all .2s}
+.nd.on{background:var(--red);transform:scale(1.5)}
+.nc{font-family:var(--sans);font-size:10px;letter-spacing:2px;color:var(--ink-gst);min-width:50px;text-align:center;font-weight:500}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- ── S1 OPENING ── -->
+<div class="slide active bw" id="s1">
+  <div class="grain"></div>
+  <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 180,120 320,200 520,60 700,160 880,30 1060,130 1240,70 1440,140 1440,300" fill="#1a1612"/></svg>
+  <div class="vl"></div>
+  <div class="cm"><div class="cd cd1"></div><div class="cd cd2"></div><div class="cd cd3"></div><span class="cl-txt">Nepal · 2025</span></div>
+  <div class="ll">
+    <div class="lbl fu">Digital Nepal Transformation · Opening</div>
+    <div class="h1 fu">Nepal is at a<br/><em>very important</em><br/><span class="r">moment.</span></div>
+    <div class="div"></div>
+    <div class="body fu">
+      People are expecting more <strong>transparency</strong>, more <strong>accountability</strong>,<br/>
+      and better systems.<br/><br/>
+      But today, even though we are investing in digital infrastructure —<br/>
+      the outcomes are still limited.<br/><br/>
+      This is not because of <strong>lack of effort</strong> —<br/>
+      it is because of <span class="r">how we are building</span> those systems.
+    </div>
+  </div>
+  <div class="sn">01 · Opening</div>
+</div>
+
+<!-- ── S2 PROBLEM ── -->
+<div class="slide bs" id="s2">
+  <div class="grain"></div>
+  <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 200,140 380,210 560,70 740,170 920,40 1100,120 1280,65 1440,130 1440,300" fill="#1a1612"/></svg>
+  <div class="vl"></div>
+  <div class="cm"><div class="cd cd1"></div><div class="cd cd2"></div><div class="cd cd3"></div></div>
+  <div class="lw">
+    <div class="lbl fu">The Core Problem</div>
+    <div class="h2 fu">We are paying more,<br/>but <em>owning</em> <span class="r">less.</span></div>
+    <ul class="pl fu">
+      <li class="pi"><div class="pd"></div><div class="pt">The same types of software are <strong>built again and again</strong> across different ministries</div></li>
+      <li class="pi"><div class="pd"></div><div class="pt">Systems <strong>do not communicate</strong> with each other — fragmentation grows with every new project</div></li>
+      <li class="pi"><div class="pd"></div><div class="pt">Many systems become <strong>inactive after a few years</strong> — a graveyard of unused tools</div></li>
+      <li class="pi"><div class="pd"></div><div class="pt">Most data is <strong>locked in PDFs</strong> — collected but never used for real decision-making</div></li>
+    </ul>
+    <div class="qt fu"><p>"We are paying multiple times for the same solutions — but not getting full value from them."</p></div>
+  </div>
+  <div class="sn">02 · Problem</div>
+</div>
+
+<!-- ── S3 FINANCIAL ── -->
+<div class="slide bd" id="s3">
+  <div class="grain"></div>
+  <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 160,110 300,190 500,50 680,150 860,20 1040,110 1220,55 1440,120 1440,300" fill="#1a1612"/></svg>
+  <div class="lc">
+    <div class="lbl fu" style="text-align:center">Financial Impact</div>
+    <div class="h1 fu" style="text-align:center;font-size:clamp(24px,4.4vw,58px)">This is not just a<br/><em>technology</em> issue.<br/>This is a <span class="r">public spending</span> issue.</div>
+    <div class="sr fu">
+      <div class="sc" style="text-align:center"><div class="sn2">3×</div><div class="sl">Same problems solved independently across ministries</div></div>
+      <div class="sc" style="text-align:center"><div class="sn2">0%</div><div class="sl">Effective data reuse across ministry systems today</div></div>
+      <div class="sc" style="text-align:center"><div class="sn2">∞</div><div class="sl">Recurring vendor contracts with no national ownership</div></div>
+    </div>
+    <div class="qt fu" style="text-align:left;margin-top:2.6vh"><p>"We are not lacking systems — we are losing value through duplication."</p></div>
+  </div>
+  <div class="sn">03 · Finance</div>
+</div>
+
+<!-- ── S4 SHIFT ── -->
+<div class="slide bw" id="s4">
+  <div class="grain"></div>
+  <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 180,120 320,200 520,60 700,160 880,30 1060,130 1240,70 1440,140 1440,300" fill="#1a1612"/></svg>
+  <div class="vl"></div>
+  <div class="cm"><div class="cd cd1"></div><div class="cd cd2"></div><div class="cd cd3"></div></div>
+  <div class="ll">
+    <div class="lbl fu">A Shift in Thinking</div>
+    <div class="h2 fu">From isolated <em>projects</em><br/>to shared national <span class="r">digital assets.</span></div>
+    <div class="div"></div>
+    <div class="cmp fu">
+      <div class="cc">
+        <h4>Today's Approach</h4>
+        <div class="ci"><span class="ck" style="color:var(--ink-gst)">✕</span><p>Each ministry builds its own version of the same system</p></div>
+        <div class="ci"><span class="ck" style="color:var(--ink-gst)">✕</span><p>Vendors own the systems — government loses control</p></div>
+        <div class="ci"><span class="ck" style="color:var(--ink-gst)">✕</span><p>Pay again every time requirements change</p></div>
+        <div class="ci"><span class="ck" style="color:var(--ink-gst)">✕</span><p>Costs repeat with every new project, every year</p></div>
+      </div>
+      <div class="cdv"></div>
+      <div class="cc rt">
+        <h4>The New Model</h4>
+        <div class="ci rt"><span class="ck" style="color:var(--red)">→</span><p>Build once, reuse across all ministries nationwide</p></div>
+        <div class="ci rt"><span class="ck" style="color:var(--red)">→</span><p>Government owns the code, deployment, and roadmap</p></div>
+        <div class="ci rt"><span class="ck" style="color:var(--red)">→</span><p>Modify open source code — no new contracts needed</p></div>
+        <div class="ci rt"><span class="ck" style="color:var(--red)">→</span><p>Cost of second deployment approaches zero</p></div>
+      </div>
+    </div>
+    <div class="fu" style="margin-top:2vh">
+      <span class="pill pr2">Build once</span><span class="pill pr2">Use everywhere</span><span class="pill pr2">Improve continuously</span>
+    </div>
+  </div>
+  <div class="sn">04 · Shift</div>
+</div>
+
+<!-- ── S5 UNITY ── -->
+<div class="slide bs" id="s5">
+  <div class="grain"></div>
+  <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 180,120 320,200 520,60 700,160 880,30 1060,130 1240,70 1440,140 1440,300" fill="#1a1612"/></svg>
+  <div class="lc">
+    <div class="lbl fu" style="text-align:center">A Personal Commitment</div>
+    <div class="h2 fu" style="text-align:center;font-size:clamp(22px,3.7vw,50px)">Nepal does not lack <em>talent.</em><br/>We lack a <span class="r">system</span> to coordinate it.</div>
+    <div class="div fu" style="margin:2.4vh auto;background:linear-gradient(to right,transparent,var(--red),transparent)"></div>
+    <div class="sub fu" style="text-align:center;max-width:52vw;margin:0 auto">
+      We have developers, engineers, students — inside the country and globally.<br/>
+      Many of us have spent years <strong>building systems for others.</strong><br/><br/>
+      Nepal's generation just proved that collective action works.<br/>
+      Now we have the opportunity to bring that energy<br/>
+      and build something for our own country — <strong>together.</strong>
+    </div>
+    <div class="sr fu" style="justify-content:center;max-width:50vw;margin:2.4vh auto 0">
+      <div class="sc" style="text-align:center"><div class="sn2">10K+</div><div class="sl">IT graduates per year</div></div>
+      <div class="sc" style="text-align:center"><div class="sn2">Global</div><div class="sl">Diaspora ready to contribute</div></div>
+      <div class="sc" style="text-align:center"><div class="sn2">Now</div><div class="sl">The right moment to act</div></div>
+    </div>
+  </div>
+  <div class="sn">05 · Unity</div>
+</div>
+
+<!-- ── S6 MODEL ── -->
+<div class="slide bl" id="s6">
+  <div class="grain"></div>
+  <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 200,130 360,200 540,55 720,165 900,28 1080,115 1260,60 1440,130 1440,300" fill="#1a1612"/></svg>
+  <div class="vl"></div>
+  <div class="cm"><div class="cd cd1"></div><div class="cd cd2"></div><div class="cd cd3"></div></div>
+  <div class="lw">
+    <div class="lbl fu">Nepal Open Digital Commons · The Model</div>
+    <div class="h2 fu">A <em>simple</em>, structured flow<br/>that <span class="r">changes everything.</span></div>
+    <div class="div"></div>
+    <div class="fl fu">
+      <div class="fs"><div class="fn">01</div><div class="fb"><div class="ft">Ministry publishes problem</div><div class="fc">No procurement — a clear problem statement</div></div></div>
+      <div class="fa">›</div>
+      <div class="fs"><div class="fn">02</div><div class="fb"><div class="ft">National Problem Registry</div><div class="fc">Open, transparent, visible to all</div></div></div>
+      <div class="fa">›</div>
+      <div class="fs"><div class="fn">03</div><div class="fb"><div class="ft">Contributors build solutions</div><div class="fc">Students, devs, startups, diaspora</div></div></div>
+      <div class="fa">›</div>
+      <div class="fs"><div class="fn">04</div><div class="fb"><div class="ft">Expert panel validates</div><div class="fc">Architecture, security, scalability</div></div></div>
+      <div class="fa">›</div>
+      <div class="fs"><div class="fn">05</div><div class="fb"><div class="ft">Government adopts &amp; scales</div><div class="fc">National digital asset — reused forever</div></div></div>
+    </div>
+    <div class="fu" style="margin-top:2.4vh">
+      <span class="pill pr2">Transparent</span><span class="pill pr2">Expert-governed</span><span class="pill pr2">Reusable</span>
+      <span class="pill pg">Open source code</span><span class="pill pg">Government owns final systems</span>
+    </div>
+  </div>
+  <div class="sn">06 · Model</div>
+</div>
+
+<!-- ── S7 PILOT ── -->
+<div class="slide bw" id="s7">
+  <div class="grain"></div>
+  <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 180,120 320,200 520,60 700,160 880,30 1060,130 1240,70 1440,140 1440,300" fill="#1a1612"/></svg>
+  <div class="vl"></div>
+  <div class="cm"><div class="cd cd1"></div><div class="cd cd2"></div><div class="cd cd3"></div></div>
+  <div class="ll">
+    <div class="lbl fu">The Pilot Proposal</div>
+    <div class="h2 fu">Start <em>small.</em> Prove value. <span class="r">Scale fast.</span></div>
+    <div class="div"></div>
+    <div class="pcs fu">
+      <div class="pc">
+        <div class="pcn">Phase 1 · Month 1–2</div>
+        <div class="pct">National Problem Registry</div>
+        <div class="pcd">3–5 pilot ministries log real problems into an open platform visible to all contributors across Nepal</div>
+      </div>
+      <div class="pc">
+        <div class="pcn">Phase 2 · Month 2–4</div>
+        <div class="pct">Open Data Dashboard</div>
+        <div class="pcd">Extract usable data from PDFs. Simple dashboards for decision-makers. Public progress tracking</div>
+      </div>
+      <div class="pc">
+        <div class="pcn">Phase 3 · Month 4–6</div>
+        <div class="pct">Full Demonstration</div>
+        <div class="pcd">One complete cycle: problem published → solution contributed → expert review → government adoption</div>
+      </div>
+    </div>
+    <div class="qt fu" style="margin-top:2.4vh"><p>"We are not proposing a big change all at once — we are asking to start with one system and build a model Nepal can scale."</p></div>
+  </div>
+  <div class="sn">07 · Pilot</div>
+</div>
+
+<!-- ── S8 CLOSING ── -->
+<div class="slide bd" id="s8">
+  <div class="grain"></div>
+  <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 180,120 320,200 520,60 700,160 880,30 1060,130 1240,70 1440,140 1440,300" fill="#1a1612"/></svg>
+  <div class="lc">
+    <div class="lbl fu" style="text-align:center">The Opportunity</div>
+    <div class="h1 fu" style="text-align:center;font-size:clamp(24px,4.3vw,58px)">
+      Moments like this<br/><em>don't come often</em> —<br/>when <span class="r">trust and opportunity align.</span>
+    </div>
+    <div style="height:2.4vh"></div>
+    <div class="sub fu" style="text-align:center;max-width:50vw;margin:0 auto">
+      If we continue the same approach, we will keep repeating the same problems.<br/>
+      But if we take a small step toward a better model —<br/>
+      we can save public money and build systems that <strong>truly serve people.</strong>
+    </div>
+    <div class="fu" style="margin-top:3vh;padding:2.4vh 3vw;border-top:1.5px solid var(--red-lt);max-width:52vw;margin-left:auto;margin-right:auto">
+      <div style="font-family:var(--serif);font-size:clamp(15px,1.7vw,24px);font-style:italic;font-weight:700;color:var(--ink-mid);text-align:center;line-height:1.6">
+        "Nepal does not need to spend more to progress —<br/>
+        Nepal can build smarter, <span style="color:var(--red)">together.</span>"
+      </div>
+    </div>
+    <div class="fu" style="margin-top:2.2vh;display:flex;gap:.9vw;justify-content:center;flex-wrap:wrap">
+      <span class="pill pr2">Reduce duplication</span>
+      <span class="pill pr2">Save public money</span>
+      <span class="pill pr2">Build national capability</span>
+    </div>
+  </div>
+  <div class="sn">08 · Closing</div>
+</div>
+
+<!-- ── NAV ── -->
+<div class="nav">
+  <button class="nb" id="prev">‹</button>
+  <div class="nds" id="nds"></div>
+  <div class="nc" id="nc">01 / 08</div>
+  <button class="nb" id="next">›</button>
+</div>
+</div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+const ndots=[];
+let cur=0,tot=slides.length;
+const ndsEl=document.getElementById('nds'),ncEl=document.getElementById('nc');
+for(let i=0;i<tot;i++){
+  const d=document.createElement('div');
+  d.className='nd'+(i===0?' on':'');
+  d.onclick=()=>go(i);
+  ndsEl.appendChild(d);ndots.push(d);
+}
+function go(n){
+  slides[cur].classList.remove('active');ndots[cur].classList.remove('on');
+  cur=(n+tot)%tot;
+  slides[cur].classList.add('active');ndots[cur].classList.add('on');
+  ncEl.textContent=String(cur+1).padStart(2,'0')+' / '+String(tot).padStart(2,'0');
+}
+document.getElementById('next').onclick=()=>go(cur+1);
+document.getElementById('prev').onclick=()=>go(cur-1);
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')go(cur+1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(cur-1);
+});
+</script>
+</body>
+</html>
