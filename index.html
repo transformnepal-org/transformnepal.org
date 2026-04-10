@@ -32,6 +32,9 @@ html,body{width:100%;height:100%;overflow:hidden}
   --red-lt:    #e8cec9;
   --red-fnt:   #f5ecea;
   --line:      #d8d0c4;
+  --blue:      #003893;
+  --blue-lt:   #e0e8f4;
+  --blue-fnt:  #f0f3f9;
 }
 
 html,body{background:var(--cream);font-family:var(--sans)}
@@ -40,9 +43,12 @@ html,body{background:var(--cream);font-family:var(--sans)}
 .deck{width:100vw;height:100vh;position:relative;background:var(--cream)}
 .slide{
   position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .48s cubic-bezier(.4,0,.2,1);
+  opacity:0;pointer-events:none;
+  transform:translateX(40px);
+  transition:opacity .52s cubic-bezier(.4,0,.2,1),transform .52s cubic-bezier(.4,0,.2,1);
 }
-.slide.active{opacity:1;pointer-events:all}
+.slide.active{opacity:1;pointer-events:all;transform:translateX(0)}
+.slide.exit-left{opacity:0;transform:translateX(-40px);transition:opacity .35s ease,transform .35s ease}
 
 /* ─── BG VARIANTS ─── */
 .bw {background:linear-gradient(140deg,#faf6f0 55%,#f4ede3 100%)}
@@ -73,23 +79,23 @@ html,body{background:var(--cream);font-family:var(--sans)}
 .sn{position:absolute;bottom:4vh;right:5vw;font-family:var(--sans);font-size:clamp(9px,.82vw,11px);letter-spacing:3px;color:var(--line);text-transform:uppercase;font-weight:500}
 
 /* ─── LABEL ─── */
-.lbl{font-family:var(--sans);font-size:clamp(9px,.88vw,12px);font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:2.2vh}
+.lbl{font-family:var(--sans);font-size:clamp(12px,1.1vw,16px);font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:2.2vh}
 
 /* ─── HEADLINES — Playfair only ─── */
-.h1{font-family:var(--serif);font-size:clamp(34px,5.6vw,74px);font-weight:900;line-height:1.07;color:var(--ink);letter-spacing:-.02em}
+.h1{font-family:var(--sans);font-size:clamp(42px,6.2vw,86px);font-weight:900;line-height:1.07;color:var(--ink);letter-spacing:-.02em}
 .h1 em{font-style:italic;font-weight:700;color:var(--ink-mid)}
 .h1 .r{color:var(--red)}
-.h2{font-family:var(--serif);font-size:clamp(26px,4vw,54px);font-weight:900;line-height:1.1;color:var(--ink);letter-spacing:-.02em}
+.h2{font-family:var(--sans);font-size:clamp(32px,4.6vw,64px);font-weight:900;line-height:1.1;color:var(--ink);letter-spacing:-.02em}
 .h2 em{font-style:italic;font-weight:700;color:var(--ink-mid)}
 .h2 .r{color:var(--red)}
 
 /* ─── BODY — PuHuiTi shines here ─── */
-.body{font-family:var(--sans);font-size:clamp(13px,1.38vw,18px);font-weight:300;line-height:2;color:var(--ink-lt)}
+.body{font-family:var(--sans);font-size:clamp(16px,1.6vw,22px);font-weight:300;line-height:2;color:var(--ink-lt)}
 .body strong{color:var(--ink-mid);font-weight:500}
 .body .r{color:var(--red);font-weight:500}
 
 /* ─── SUBTEXT ─── */
-.sub{font-family:var(--sans);font-size:clamp(13px,1.3vw,17px);font-weight:300;line-height:1.9;color:var(--ink-lt)}
+.sub{font-family:var(--sans);font-size:clamp(16px,1.5vw,21px);font-weight:300;line-height:1.9;color:var(--ink-lt)}
 .sub strong{color:var(--ink-mid);font-weight:500}
 
 /* ─── DIVIDER ─── */
@@ -114,52 +120,52 @@ html,body{background:var(--cream);font-family:var(--sans)}
 
 /* ─── QUOTE ─── */
 .qt{margin-top:2.6vh;padding:1.6vh 1.8vw;border-left:3px solid var(--red);background:var(--red-fnt)}
-.qt p{font-family:var(--sans);font-size:clamp(13px,1.3vw,17px);font-style:italic;font-weight:400;color:var(--ink-mid);line-height:1.75}
+.qt p{font-family:var(--sans);font-size:clamp(15px,1.5vw,21px);font-style:italic;font-weight:400;color:var(--ink-mid);line-height:1.75}
 
 /* ─── PROBLEM LIST ─── */
 .pl{list-style:none;margin-top:2.4vh;display:flex;flex-direction:column;gap:.9vh}
 .pi{display:flex;align-items:flex-start;gap:1vw;padding:1.3vh 1.5vw;background:#fff;border:1px solid var(--line);border-radius:5px;border-left:3px solid var(--red-lt)}
 .pd{width:6px;height:6px;border-radius:50%;background:var(--red);margin-top:.5em;flex-shrink:0}
-.pt{font-family:var(--sans);font-size:clamp(12px,1.15vw,15px);color:var(--ink-lt);font-weight:300;line-height:1.65}
+.pt{font-family:var(--sans);font-size:clamp(15px,1.3vw,19px);color:var(--ink-lt);font-weight:300;line-height:1.65}
 .pt strong{color:var(--ink-mid);font-weight:500}
 
 /* ─── STAT CARDS ─── */
 .sr{display:flex;gap:1.6vw;margin-top:2.8vh}
 .sc{flex:1;padding:1.8vh 1.6vw;background:#fff;border:1px solid var(--line);border-radius:7px;border-top:2.5px solid var(--red)}
-.sn2{font-family:var(--serif);font-size:clamp(20px,2.6vw,40px);font-weight:900;color:var(--red);line-height:1}
-.sl{font-family:var(--sans);font-size:clamp(10px,.9vw,12px);color:var(--ink-fnt);margin-top:7px;font-weight:400;line-height:1.5}
+.sn2{font-family:var(--serif);font-size:clamp(26px,3vw,48px);font-weight:900;color:var(--red);line-height:1}
+.sl{font-family:var(--sans);font-size:clamp(12px,1.05vw,15px);color:var(--ink-fnt);margin-top:7px;font-weight:400;line-height:1.5}
 
 /* ─── COMPARE ─── */
 .cmp{display:grid;grid-template-columns:1fr 1px 1fr;margin-top:2.6vh;height:33vh}
 .cc{padding:1.8vh 2vw}
-.cc h4{font-family:var(--sans);font-size:clamp(11px,1.1vw,14px);font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-gst);margin-bottom:1.6vh}
+.cc h4{font-family:var(--sans);font-size:clamp(13px,1.2vw,17px);font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-gst);margin-bottom:1.6vh}
 .cc.rt h4{color:var(--red)}
 .cdv{background:var(--line);width:1px}
 .ci{display:flex;align-items:flex-start;gap:.8vw;margin-bottom:1.2vh}
-.ci p{font-family:var(--sans);font-size:clamp(11px,1vw,14px);color:var(--ink-fnt);font-weight:300;line-height:1.55}
+.ci p{font-family:var(--sans);font-size:clamp(14px,1.15vw,17px);color:var(--ink-fnt);font-weight:300;line-height:1.55}
 .ci.rt p{color:var(--ink-mid)}
 .ck{font-size:11px;margin-top:2px;flex-shrink:0}
 
 /* ─── PILLS ─── */
-.pill{display:inline-block;padding:5px 14px;border-radius:20px;font-family:var(--sans);font-size:clamp(10px,.88vw,12px);font-weight:500;letter-spacing:.2px;margin-right:6px;margin-bottom:6px}
+.pill{display:inline-block;padding:6px 16px;border-radius:20px;font-family:var(--sans);font-size:clamp(12px,1vw,15px);font-weight:500;letter-spacing:.2px;margin-right:6px;margin-bottom:6px}
 .pr2{background:var(--red-fnt);color:var(--red);border:1px solid var(--red-lt)}
 .pg{background:var(--cream-mid);color:var(--ink-fnt);border:1px solid var(--line)}
 
 /* ─── FLOW ─── */
 .fl{display:flex;align-items:flex-start;gap:0;margin-top:2.8vh}
 .fs{display:flex;flex-direction:column;align-items:center;flex:1}
-.fn{font-family:var(--sans);font-size:clamp(9px,.72vw,10px);color:var(--red);letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:5px}
+.fn{font-family:var(--sans);font-size:clamp(11px,.85vw,13px);color:var(--red);letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:5px}
 .fb{padding:1.4vh .9vw;background:#fff;border:1px solid var(--line);border-radius:5px;text-align:center;width:100%;border-top:2px solid var(--red)}
-.ft{font-family:var(--sans);font-size:clamp(10px,.9vw,12px);font-weight:600;color:var(--ink-mid);line-height:1.35}
-.fc{font-family:var(--sans);font-size:clamp(9px,.75vw,10px);color:var(--ink-fnt);margin-top:4px;line-height:1.4;font-weight:300}
+.ft{font-family:var(--sans);font-size:clamp(13px,1.05vw,16px);font-weight:600;color:var(--ink-mid);line-height:1.35}
+.fc{font-family:var(--sans);font-size:clamp(11px,.88vw,13px);color:var(--ink-fnt);margin-top:4px;line-height:1.4;font-weight:300}
 .fa{color:var(--line);font-size:clamp(14px,1.6vw,24px);padding:0 .2vw;margin-top:3.2vh;flex-shrink:0}
 
 /* ─── PHASE CARDS ─── */
 .pcs{display:flex;gap:1.6vw;margin-top:2.8vh}
 .pc{flex:1;padding:2vh 1.5vw;background:#fff;border:1px solid var(--line);border-radius:7px;border-top:2px solid var(--red)}
-.pcn{font-family:var(--sans);font-size:clamp(9px,.78vw,11px);color:var(--red);letter-spacing:3px;text-transform:uppercase;font-weight:600;margin-bottom:.9vh}
-.pct{font-family:var(--sans);font-size:clamp(12px,1.15vw,16px);font-weight:600;color:var(--ink-mid);margin-bottom:.7vh;line-height:1.35}
-.pcd{font-family:var(--sans);font-size:clamp(11px,.92vw,13px);color:var(--ink-fnt);font-weight:300;line-height:1.65}
+.pcn{font-family:var(--sans);font-size:clamp(11px,.92vw,14px);color:var(--red);letter-spacing:3px;text-transform:uppercase;font-weight:600;margin-bottom:.9vh}
+.pct{font-family:var(--sans);font-size:clamp(15px,1.3vw,20px);font-weight:600;color:var(--ink-mid);margin-bottom:.7vh;line-height:1.35}
+.pcd{font-family:var(--sans);font-size:clamp(13px,1.08vw,16px);color:var(--ink-fnt);font-weight:300;line-height:1.65}
 
 /* ─── NAV ─── */
 .nav{position:fixed;bottom:3.5vh;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:1.6vw;z-index:100;
@@ -171,35 +177,87 @@ html,body{background:var(--cream);font-family:var(--sans)}
 .nd{width:5px;height:5px;border-radius:50%;background:var(--line);cursor:pointer;transition:all .2s}
 .nd.on{background:var(--red);transform:scale(1.5)}
 .nc{font-family:var(--sans);font-size:10px;letter-spacing:2px;color:var(--ink-gst);min-width:50px;text-align:center;font-weight:500}
+
+/* ─── PROGRESS BAR ─── */
+.pbar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--red),var(--red-mid));z-index:200;transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:0 2px 2px 0}
+
+/* ─── DECORATIVE QUOTES ─── */
+.qt{position:relative;padding-left:3.5vw}
+.qt::before{content:'\201C';position:absolute;left:.6vw;top:-.5vh;font-family:var(--serif);font-size:clamp(40px,4.5vw,70px);color:var(--red);opacity:.25;line-height:1}
+
+/* ─── NEPAL FLAG WATERMARK ─── */
+.nepal-flag{position:absolute;right:4vw;bottom:8vh;width:clamp(80px,12vw,180px);opacity:.04;pointer-events:none}
+
+/* ─── COUNTRY FLAG BARS ─── */
+.sc.india{border-top-color:#FF9933}
+.sc.estonia{border-top-color:#0072CE}
+.sc.uk{border-top-color:#003893}
+
+/* ─── NUMBERED CIRCLES ─── */
+.ask-num{display:inline-flex;align-items:center;justify-content:center;width:clamp(36px,3.2vw,52px);height:clamp(36px,3.2vw,52px);border-radius:50%;background:var(--red);color:#fff;font-family:var(--sans);font-size:clamp(16px,1.6vw,24px);font-weight:900;margin-bottom:8px}
+
+/* ─── COUNTER ANIMATION ─── */
+.sn2{transition:opacity .3s ease}
+.sn2.counting{opacity:.7}
+
+/* ─── BLUE PILL VARIANT ─── */
+.pb{background:var(--blue-fnt);color:var(--blue);border:1px solid var(--blue-lt)}
 </style>
 </head>
 <body>
 <div class="deck">
+<div class="pbar" id="pbar" style="width:9.09%"></div>
 
 <!-- ── S1 OPENING ── -->
 <div class="slide active bw" id="s1">
   <div class="grain"></div>
   <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 180,120 320,200 520,60 700,160 880,30 1060,130 1240,70 1440,140 1440,300" fill="#1a1612"/></svg>
-  <div class="vl"></div>
+  <svg class="nepal-flag" viewBox="0 0 100 120" fill="none"><path d="M5 115L5 5L95 55L35 55L95 15L50 15L5 115Z" stroke="#1a1612" stroke-width="2" fill="none"/></svg>
   <div class="cm"><div class="cd cd1"></div><div class="cd cd2"></div><div class="cd cd3"></div><span class="cl-txt">Nepal · 2025</span></div>
-  <div class="ll">
-    <div class="lbl fu">Digital Nepal Transformation · Opening</div>
-    <div class="h1 fu">Nepal is at a<br/><em>very important</em><br/><span class="r">moment.</span></div>
-    <div class="div"></div>
-    <div class="body fu">
-      People are expecting more <strong>transparency</strong>, more <strong>accountability</strong>,<br/>
-      and better systems.<br/><br/>
-      But today, even though we are investing in digital infrastructure —<br/>
-      the outcomes are still limited.<br/><br/>
-      This is not because of <strong>lack of effort</strong> —<br/>
-      it is because of <span class="r">how we are building</span> those systems.
+  <div class="lc">
+    <div class="lbl fu" style="text-align:center;letter-spacing:6px">Transform Nepal</div>
+    <div class="h1 fu" style="text-align:center;font-size:clamp(32px,5.4vw,72px)">The people spoke.<br/>Now let's <span class="r">build.</span></div>
+    <div class="div fu" style="margin:2vh auto;background:linear-gradient(to right,transparent,var(--red),transparent)"></div>
+    <div class="sub fu" style="text-align:center;max-width:52vw;margin:0 auto">
+      Nepal's youth proved that collective action can move a nation.<br/>
+      That energy doesn't have to end — it can build the <strong>digital systems</strong><br/>
+      our government deserves — <strong>by the people, for the people.</strong>
+    </div>
+    <div class="sr fu" style="justify-content:center;max-width:56vw;margin:2.4vh auto 0">
+      <div class="sc" style="text-align:center"><div class="sn2">Gen-Z</div><div class="sl">A generation ready to build, not just demand</div></div>
+      <div class="sc" style="text-align:center"><div class="sn2">Millions</div><div class="sl">Voices demanding transparent governance</div></div>
+      <div class="sc" style="text-align:center"><div class="sn2">Now</div><div class="sl">The moment to channel energy into building</div></div>
+    </div>
+    <div class="fu" style="margin-top:2.4vh">
+      <span class="pill pr2">Open Source</span><span class="pill pr2">By The People</span><span class="pill pr2">Digital Governance</span>
     </div>
   </div>
-  <div class="sn">01 · Opening</div>
+  <div class="sn">01 · The Moment</div>
 </div>
 
-<!-- ── S2 PROBLEM ── -->
+<!-- ── S2 THE MOMENT ── -->
 <div class="slide bs" id="s2">
+  <div class="grain"></div>
+  <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 200,140 380,210 560,70 740,170 920,40 1100,120 1280,65 1440,130 1440,300" fill="#1a1612"/></svg>
+  <div class="vl"></div>
+  <div class="cm"><div class="cd cd1"></div><div class="cd cd2"></div><div class="cd cd3"></div></div>
+  <div class="ll">
+    <div class="lbl fu">A New Moment for Nepal</div>
+    <div class="h2 fu">Nepal is <span class="r">changing.</span><br/>The people are <em>watching.</em></div>
+    <div class="div"></div>
+    <ul class="pl fu">
+      <li class="pi"><div class="pd"></div><div class="pt">Citizens expect <strong>transparency</strong> — not as a promise, but as a standard</div></li>
+      <li class="pi"><div class="pd"></div><div class="pt"><strong>Accountability</strong> is no longer optional — it is becoming the measure of governance</div></li>
+      <li class="pi"><div class="pd"></div><div class="pt">There is a <strong>strong public mandate</strong> for systems that truly serve the people</div></li>
+      <li class="pi"><div class="pd"></div><div class="pt">This is not just a political moment — this is a <strong>systems opportunity</strong></div></li>
+    </ul>
+    <div class="qt fu"><p>"This is the right time to build systems that reflect the trust people have placed in their government — open, accountable, and owned by the nation."</p></div>
+  </div>
+  <div class="sn">02 · The Moment</div>
+</div>
+
+<!-- ── S3 PROBLEM ── -->
+<div class="slide bd" id="s3">
   <div class="grain"></div>
   <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 200,140 380,210 560,70 740,170 920,40 1100,120 1280,65 1440,130 1440,300" fill="#1a1612"/></svg>
   <div class="vl"></div>
@@ -208,35 +266,59 @@ html,body{background:var(--cream);font-family:var(--sans)}
     <div class="lbl fu">The Core Problem</div>
     <div class="h2 fu">We are paying more,<br/>but <em>owning</em> <span class="r">less.</span></div>
     <ul class="pl fu">
-      <li class="pi"><div class="pd"></div><div class="pt">The same types of software are <strong>built again and again</strong> across different ministries</div></li>
+      <li class="pi"><div class="pd"></div><div class="pt">The same software is <strong>built again and again</strong> across ministries — duplicate spending, zero reuse</div></li>
       <li class="pi"><div class="pd"></div><div class="pt">Systems <strong>do not communicate</strong> with each other — fragmentation grows with every new project</div></li>
       <li class="pi"><div class="pd"></div><div class="pt">Many systems become <strong>inactive after a few years</strong> — a graveyard of unused tools</div></li>
       <li class="pi"><div class="pd"></div><div class="pt">Most data is <strong>locked in PDFs</strong> — collected but never used for real decision-making</div></li>
+      <li class="pi"><div class="pd"></div><div class="pt">Vendors own the code — <strong>government loses control</strong> and pays again for every change</div></li>
     </ul>
-    <div class="qt fu"><p>"We are paying multiple times for the same solutions — but not getting full value from them."</p></div>
+    <div class="qt fu"><p>"We are not lacking systems. We are losing public money through duplication, and losing public trust through opacity."</p></div>
   </div>
-  <div class="sn">02 · Problem</div>
+  <div class="sn">03 · Problem</div>
 </div>
 
-<!-- ── S3 FINANCIAL ── -->
-<div class="slide bd" id="s3">
+<!-- ── S4 FINANCIAL ── -->
+<div class="slide bl" id="s4">
   <div class="grain"></div>
   <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 160,110 300,190 500,50 680,150 860,20 1040,110 1220,55 1440,120 1440,300" fill="#1a1612"/></svg>
   <div class="lc">
     <div class="lbl fu" style="text-align:center">Financial Impact</div>
-    <div class="h1 fu" style="text-align:center;font-size:clamp(24px,4.4vw,58px)">This is not just a<br/><em>technology</em> issue.<br/>This is a <span class="r">public spending</span> issue.</div>
+    <div class="h1 fu" style="text-align:center;font-size:clamp(26px,4.4vw,58px)">This is not just a<br/><em>technology</em> issue.<br/>This is a <span class="r">public spending</span> issue.</div>
     <div class="sr fu">
-      <div class="sc" style="text-align:center"><div class="sn2">3×</div><div class="sl">Same problems solved independently across ministries</div></div>
+      <div class="sc" style="text-align:center"><div class="sn2" data-count="3" data-suffix="x">3x</div><div class="sl">Same problems solved independently across ministries</div></div>
       <div class="sc" style="text-align:center"><div class="sn2">0%</div><div class="sl">Effective data reuse across ministry systems today</div></div>
-      <div class="sc" style="text-align:center"><div class="sn2">∞</div><div class="sl">Recurring vendor contracts with no national ownership</div></div>
+      <div class="sc" style="text-align:center"><div class="sn2">6-12mo</div><div class="sl">Before a single line of code through traditional procurement</div></div>
     </div>
     <div class="qt fu" style="text-align:left;margin-top:2.6vh"><p>"We are not lacking systems — we are losing value through duplication."</p></div>
   </div>
-  <div class="sn">03 · Finance</div>
+  <div class="sn">04 · Finance</div>
 </div>
 
-<!-- ── S4 SHIFT ── -->
-<div class="slide bw" id="s4">
+<!-- ── S5 GLOBAL PRECEDENT ── -->
+<div class="slide bw" id="s5">
+  <div class="grain"></div>
+  <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 180,120 320,200 520,60 700,160 880,30 1060,130 1240,70 1440,140 1440,300" fill="#1a1612"/></svg>
+  <div class="lc">
+    <div class="lbl fu" style="text-align:center">Global Precedent</div>
+    <div class="h2 fu" style="text-align:center">Nations that build <em>open</em><br/>build <span class="r">faster.</span></div>
+    <div class="sr fu" style="justify-content:center;max-width:64vw;margin:2.4vh auto 0">
+      <div class="sc india" style="text-align:center"><div class="sn2" style="color:#FF9933">India</div><div class="sl">DIGIT platform — open-source infrastructure serving 500M+ citizens across states</div></div>
+      <div class="sc estonia" style="text-align:center"><div class="sn2" style="color:#0072CE">Estonia</div><div class="sl">X-Road — open digital backbone, the most advanced e-government on Earth</div></div>
+      <div class="sc uk" style="text-align:center"><div class="sn2" style="color:#003893">UK</div><div class="sl">GDS — Government Digital Service saved billions through shared open-source components</div></div>
+    </div>
+    <div class="sub fu" style="text-align:center;max-width:52vw;margin:2.4vh auto 0">
+      These countries built <strong>shared national digital assets</strong> — open, reusable, government-owned.<br/>
+      <strong>Nepal can do the same.</strong>
+    </div>
+    <div class="fu" style="margin-top:2vh">
+      <span class="pill pb">Proven Model</span><span class="pill pb">Cost Savings</span><span class="pill pr2">National Ownership</span>
+    </div>
+  </div>
+  <div class="sn">05 · Precedent</div>
+</div>
+
+<!-- ── S6 SHIFT ── -->
+<div class="slide bs" id="s6">
   <div class="grain"></div>
   <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 180,120 320,200 520,60 700,160 880,30 1060,130 1240,70 1440,140 1440,300" fill="#1a1612"/></svg>
   <div class="vl"></div>
@@ -251,144 +333,169 @@ html,body{background:var(--cream);font-family:var(--sans)}
         <div class="ci"><span class="ck" style="color:var(--ink-gst)">✕</span><p>Each ministry builds its own version of the same system</p></div>
         <div class="ci"><span class="ck" style="color:var(--ink-gst)">✕</span><p>Vendors own the systems — government loses control</p></div>
         <div class="ci"><span class="ck" style="color:var(--ink-gst)">✕</span><p>Pay again every time requirements change</p></div>
-        <div class="ci"><span class="ck" style="color:var(--ink-gst)">✕</span><p>Costs repeat with every new project, every year</p></div>
+        <div class="ci"><span class="ck" style="color:var(--ink-gst)">✕</span><p>No transparency, no accountability, no data reuse</p></div>
       </div>
       <div class="cdv"></div>
       <div class="cc rt">
         <h4>The New Model</h4>
         <div class="ci rt"><span class="ck" style="color:var(--red)">→</span><p>Build once, reuse across all ministries nationwide</p></div>
         <div class="ci rt"><span class="ck" style="color:var(--red)">→</span><p>Government owns the code, deployment, and roadmap</p></div>
-        <div class="ci rt"><span class="ck" style="color:var(--red)">→</span><p>Modify open source code — no new contracts needed</p></div>
-        <div class="ci rt"><span class="ck" style="color:var(--red)">→</span><p>Cost of second deployment approaches zero</p></div>
+        <div class="ci rt"><span class="ck" style="color:var(--red)">→</span><p>Community improves code — no new contracts needed</p></div>
+        <div class="ci rt"><span class="ck" style="color:var(--red)">→</span><p>Open source = transparent, auditable, accountable</p></div>
       </div>
     </div>
     <div class="fu" style="margin-top:2vh">
-      <span class="pill pr2">Build once</span><span class="pill pr2">Use everywhere</span><span class="pill pr2">Improve continuously</span>
+      <span class="pill pr2">Build Once</span><span class="pill pr2">Use Everywhere</span><span class="pill pr2">Own Forever</span>
     </div>
   </div>
-  <div class="sn">04 · Shift</div>
+  <div class="sn">06 · The Shift</div>
 </div>
 
-<!-- ── S5 UNITY ── -->
-<div class="slide bs" id="s5">
+<!-- ── S7 THE BUILDERS ── -->
+<div class="slide bd" id="s7">
   <div class="grain"></div>
   <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 180,120 320,200 520,60 700,160 880,30 1060,130 1240,70 1440,140 1440,300" fill="#1a1612"/></svg>
   <div class="lc">
-    <div class="lbl fu" style="text-align:center">A Personal Commitment</div>
-    <div class="h2 fu" style="text-align:center;font-size:clamp(22px,3.7vw,50px)">Nepal does not lack <em>talent.</em><br/>We lack a <span class="r">system</span> to coordinate it.</div>
-    <div class="div fu" style="margin:2.4vh auto;background:linear-gradient(to right,transparent,var(--red),transparent)"></div>
-    <div class="sub fu" style="text-align:center;max-width:52vw;margin:0 auto">
-      We have developers, engineers, students — inside the country and globally.<br/>
-      Many of us have spent years <strong>building systems for others.</strong><br/><br/>
-      Nepal's generation just proved that collective action works.<br/>
-      Now we have the opportunity to bring that energy<br/>
-      and build something for our own country — <strong>together.</strong>
+    <div class="lbl fu" style="text-align:center">The Builders</div>
+    <div class="h2 fu" style="text-align:center;font-size:clamp(24px,3.8vw,52px)">Nepal does not lack <em>talent.</em><br/>We lack a <span class="r">platform</span> to coordinate it.</div>
+    <div class="div fu" style="margin:2vh auto;background:linear-gradient(to right,transparent,var(--red),transparent)"></div>
+    <div class="sr fu" style="justify-content:center;max-width:66vw;margin:1.6vh auto 0">
+      <div class="sc" style="text-align:center"><div class="sn2" data-count="10000" data-suffix="+">10,000+</div><div class="sl">College students graduating in IT every year — ready to contribute</div></div>
+      <div class="sc" style="text-align:center"><div class="sn2" data-count="1000" data-suffix="s+">1,000s+</div><div class="sl">Software engineers &amp; freelancers building for foreign clients</div></div>
+      <div class="sc" style="text-align:center"><div class="sn2" data-count="100" data-suffix="+">100+</div><div class="sl">IT companies willing to volunteer hours for national projects</div></div>
+      <div class="sc" style="text-align:center"><div class="sn2">Global</div><div class="sl">Nepali diaspora engineers at top tech companies worldwide</div></div>
     </div>
-    <div class="sr fu" style="justify-content:center;max-width:50vw;margin:2.4vh auto 0">
-      <div class="sc" style="text-align:center"><div class="sn2">10K+</div><div class="sl">IT graduates per year</div></div>
-      <div class="sc" style="text-align:center"><div class="sn2">Global</div><div class="sl">Diaspora ready to contribute</div></div>
-      <div class="sc" style="text-align:center"><div class="sn2">Now</div><div class="sl">The right moment to act</div></div>
+    <div class="sub fu" style="text-align:center;max-width:54vw;margin:2vh auto 0">
+      These are not contractors seeking payment.<br/>
+      These are <strong>citizens seeking a platform to serve their country.</strong><br/>
+      College students. Engineers. Freelancers. IT companies.<br/>
+      All volunteering — <strong>they need coordination, not funding.</strong>
     </div>
   </div>
-  <div class="sn">05 · Unity</div>
+  <div class="sn">07 · The Builders</div>
 </div>
 
-<!-- ── S6 MODEL ── -->
-<div class="slide bl" id="s6">
+<!-- ── S8 MODEL ── -->
+<div class="slide bw" id="s8">
   <div class="grain"></div>
   <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 200,130 360,200 540,55 720,165 900,28 1080,115 1260,60 1440,130 1440,300" fill="#1a1612"/></svg>
   <div class="vl"></div>
   <div class="cm"><div class="cd cd1"></div><div class="cd cd2"></div><div class="cd cd3"></div></div>
   <div class="lw">
-    <div class="lbl fu">Nepal Open Digital Commons · The Model</div>
+    <div class="lbl fu">Nepal Open Digital Commons</div>
     <div class="h2 fu">A <em>simple</em>, structured flow<br/>that <span class="r">changes everything.</span></div>
     <div class="div"></div>
     <div class="fl fu">
-      <div class="fs"><div class="fn">01</div><div class="fb"><div class="ft">Ministry publishes problem</div><div class="fc">No procurement — a clear problem statement</div></div></div>
+      <div class="fs"><div class="fn">01</div><div class="fb"><div class="ft">Ministry publishes problem</div><div class="fc">A clear problem statement — no procurement needed</div></div></div>
       <div class="fa">›</div>
-      <div class="fs"><div class="fn">02</div><div class="fb"><div class="ft">National Problem Registry</div><div class="fc">Open, transparent, visible to all</div></div></div>
+      <div class="fs"><div class="fn">02</div><div class="fb"><div class="ft">National Problem Registry</div><div class="fc">Open, transparent, visible to all citizens</div></div></div>
       <div class="fa">›</div>
-      <div class="fs"><div class="fn">03</div><div class="fb"><div class="ft">Contributors build solutions</div><div class="fc">Students, devs, startups, diaspora</div></div></div>
+      <div class="fs"><div class="fn">03</div><div class="fb"><div class="ft">Contributors build solutions</div><div class="fc">Students, engineers, freelancers, companies</div></div></div>
       <div class="fa">›</div>
-      <div class="fs"><div class="fn">04</div><div class="fb"><div class="ft">Expert panel validates</div><div class="fc">Architecture, security, scalability</div></div></div>
+      <div class="fs"><div class="fn">04</div><div class="fb"><div class="ft">Expert Directory validates</div><div class="fc">Architecture, security, scalability review</div></div></div>
       <div class="fa">›</div>
-      <div class="fs"><div class="fn">05</div><div class="fb"><div class="ft">Government adopts &amp; scales</div><div class="fc">National digital asset — reused forever</div></div></div>
+      <div class="fs"><div class="fn">05</div><div class="fb"><div class="ft">Government adopts &amp; owns</div><div class="fc">A national digital asset — reused forever</div></div></div>
     </div>
     <div class="fu" style="margin-top:2.4vh">
-      <span class="pill pr2">Transparent</span><span class="pill pr2">Expert-governed</span><span class="pill pr2">Reusable</span>
-      <span class="pill pg">Open source code</span><span class="pill pg">Government owns final systems</span>
+      <span class="pill pr2">Transparent</span><span class="pill pr2">Expert-Governed</span><span class="pill pr2">Reusable</span>
+      <span class="pill pr2">Zero Procurement Cost</span><span class="pill pg">Government Ownership</span>
     </div>
   </div>
-  <div class="sn">06 · Model</div>
+  <div class="sn">08 · The Model</div>
 </div>
 
-<!-- ── S7 PILOT ── -->
-<div class="slide bw" id="s7">
+<!-- ── S9 PILOT ── -->
+<div class="slide bs" id="s9">
   <div class="grain"></div>
   <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 180,120 320,200 520,60 700,160 880,30 1060,130 1240,70 1440,140 1440,300" fill="#1a1612"/></svg>
   <div class="vl"></div>
   <div class="cm"><div class="cd cd1"></div><div class="cd cd2"></div><div class="cd cd3"></div></div>
   <div class="ll">
-    <div class="lbl fu">The Pilot Proposal</div>
-    <div class="h2 fu">Start <em>small.</em> Prove value. <span class="r">Scale fast.</span></div>
+    <div class="lbl fu">The Pilot</div>
+    <div class="h2 fu">One month. One system.<br/><span class="r">Proof it works.</span></div>
     <div class="div"></div>
     <div class="pcs fu">
       <div class="pc">
-        <div class="pcn">Phase 1 · Month 1–2</div>
-        <div class="pct">National Problem Registry</div>
-        <div class="pcd">3–5 pilot ministries log real problems into an open platform visible to all contributors across Nepal</div>
+        <div class="pcn">Week 1–2</div>
+        <div class="pct">Setup &amp; Registry</div>
+        <div class="pcd">Launch coordination unit. Publish 3 real ministry problems. Open contributor registration across Nepal</div>
       </div>
       <div class="pc">
-        <div class="pcn">Phase 2 · Month 2–4</div>
-        <div class="pct">Open Data Dashboard</div>
-        <div class="pcd">Extract usable data from PDFs. Simple dashboards for decision-makers. Public progress tracking</div>
+        <div class="pcn">Week 2–3</div>
+        <div class="pct">Build &amp; Review</div>
+        <div class="pcd">Volunteer contributors build solutions. Expert panel reviews architecture, security, and scalability</div>
       </div>
       <div class="pc">
-        <div class="pcn">Phase 3 · Month 4–6</div>
-        <div class="pct">Full Demonstration</div>
-        <div class="pcd">One complete cycle: problem published → solution contributed → expert review → government adoption</div>
+        <div class="pcn">Week 3–4</div>
+        <div class="pct">Deliver &amp; Demonstrate</div>
+        <div class="pcd">Government receives working solution. Full cycle demonstrated: problem to adoption in 30 days</div>
       </div>
     </div>
-    <div class="qt fu" style="margin-top:2.4vh"><p>"We are not proposing a big change all at once — we are asking to start with one system and build a model Nepal can scale."</p></div>
+    <div class="qt fu" style="margin-top:2.4vh"><p>"Traditional procurement takes 6-12 months before a single line of code is written. This community can deliver a working system in 30 days — at zero cost to the government."</p></div>
   </div>
-  <div class="sn">07 · Pilot</div>
+  <div class="sn">09 · The Pilot</div>
 </div>
 
-<!-- ── S8 CLOSING ── -->
-<div class="slide bd" id="s8">
+<!-- ── S10 THE ASK ── -->
+<div class="slide bl" id="s10">
   <div class="grain"></div>
-  <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 180,120 320,200 520,60 700,160 880,30 1060,130 1240,70 1440,140 1440,300" fill="#1a1612"/></svg>
+  <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 160,110 300,190 500,50 680,150 860,20 1040,110 1220,55 1440,120 1440,300" fill="#1a1612"/></svg>
   <div class="lc">
-    <div class="lbl fu" style="text-align:center">The Opportunity</div>
-    <div class="h1 fu" style="text-align:center;font-size:clamp(24px,4.3vw,58px)">
-      Moments like this<br/><em>don't come often</em> —<br/>when <span class="r">trust and opportunity align.</span>
+    <div class="lbl fu" style="text-align:center">Our Request</div>
+    <div class="h1 fu" style="text-align:center;font-size:clamp(26px,4.3vw,58px)">We don't want <em>money.</em><br/>We want a <span class="r">platform to serve.</span></div>
+    <div class="div fu" style="margin:2vh auto;background:linear-gradient(to right,transparent,var(--red),transparent)"></div>
+    <div class="sr fu" style="justify-content:center;max-width:64vw;margin:1.6vh auto 0">
+      <div class="sc" style="text-align:center;position:relative"><div class="ask-num">1</div><div class="sl" style="font-weight:600;color:var(--ink-mid);font-size:clamp(14px,1.2vw,18px);margin-top:10px">A Coordination Unit</div><div class="sl">A small unit within the Ministry to receive problems, coordinate contributors, and manage the registry</div></div>
+      <div class="sc" style="text-align:center;position:relative"><div class="ask-num">2</div><div class="sl" style="font-weight:600;color:var(--ink-mid);font-size:clamp(14px,1.2vw,18px);margin-top:10px">One Pilot Problem</div><div class="sl">Select one real ministry challenge for the community to solve in 30 days as a national demonstration</div></div>
+      <div class="sc" style="text-align:center;position:relative"><div class="ask-num">3</div><div class="sl" style="font-weight:600;color:var(--ink-mid);font-size:clamp(14px,1.2vw,18px);margin-top:10px">National Expert Directory</div><div class="sl">Authorize creation of a verified directory of Nepal's tech experts for quality assurance</div></div>
     </div>
-    <div style="height:2.4vh"></div>
-    <div class="sub fu" style="text-align:center;max-width:50vw;margin:0 auto">
-      If we continue the same approach, we will keep repeating the same problems.<br/>
-      But if we take a small step toward a better model —<br/>
-      we can save public money and build systems that <strong>truly serve people.</strong>
+    <div class="sub fu" style="text-align:center;max-width:52vw;margin:2.4vh auto 0">
+      <strong>No budget allocation needed. No procurement process.</strong><br/>
+      The community funds itself. The government provides <strong>legitimacy and coordination.</strong><br/>
+      That is the only investment required.
     </div>
-    <div class="fu" style="margin-top:3vh;padding:2.4vh 3vw;border-top:1.5px solid var(--red-lt);max-width:52vw;margin-left:auto;margin-right:auto">
-      <div style="font-family:var(--serif);font-size:clamp(15px,1.7vw,24px);font-style:italic;font-weight:700;color:var(--ink-mid);text-align:center;line-height:1.6">
-        "Nepal does not need to spend more to progress —<br/>
-        Nepal can build smarter, <span style="color:var(--red)">together.</span>"
-      </div>
-    </div>
-    <div class="fu" style="margin-top:2.2vh;display:flex;gap:.9vw;justify-content:center;flex-wrap:wrap">
-      <span class="pill pr2">Reduce duplication</span>
-      <span class="pill pr2">Save public money</span>
-      <span class="pill pr2">Build national capability</span>
+    <div class="fu" style="margin-top:2vh">
+      <span class="pill pb">Zero Cost</span><span class="pill pr2">30-Day Proof</span><span class="pill pb">Full Government Ownership</span>
     </div>
   </div>
-  <div class="sn">08 · Closing</div>
+  <div class="sn">10 · The Ask</div>
+</div>
+
+<!-- ── S11 CLOSING ── -->
+<div class="slide bd" id="s11">
+  <div class="grain"></div>
+  <svg class="mtn" viewBox="0 0 1440 300" preserveAspectRatio="none"><polygon points="0,300 180,120 320,200 520,60 700,160 880,30 1060,130 1240,70 1440,140 1440,300" fill="#1a1612"/></svg>
+  <svg class="nepal-flag" viewBox="0 0 100 120" fill="none"><path d="M5 115L5 5L95 55L35 55L95 15L50 15L5 115Z" stroke="#1a1612" stroke-width="2" fill="none"/></svg>
+  <div class="lc">
+    <div class="lbl fu" style="text-align:center">The Opportunity</div>
+    <div class="h1 fu" style="text-align:center;font-size:clamp(28px,4.6vw,62px)">
+      By the people.<br/>For the people.<br/><span class="r">Built by Nepal.</span>
+    </div>
+    <div class="div fu" style="margin:2vh auto;background:linear-gradient(to right,transparent,var(--red),transparent)"></div>
+    <div class="sub fu" style="text-align:center;max-width:52vw;margin:0 auto;line-height:2.1">
+      A generation that marched for change now wants to <strong>build</strong> that change.<br/>
+      Students. Engineers. Freelancers. Companies. Diaspora.<br/>
+      All ready. All willing. All volunteering.<br/><br/>
+      Give them a platform.<br/>
+      In 30 days, Nepal will have proof that its people<br/>
+      can build <strong>world-class digital governance</strong> — together.
+    </div>
+    <div class="fu" style="margin-top:2.4vh;display:flex;gap:.9vw;justify-content:center;flex-wrap:wrap">
+      <span class="pill pr2">Transparency</span>
+      <span class="pill pr2">Accountability</span>
+      <span class="pill pr2">Open Source</span>
+      <span class="pill pr2">National Ownership</span>
+      <span class="pill pr2">By The People</span>
+    </div>
+  </div>
+  <div class="sn">11 · Closing</div>
 </div>
 
 <!-- ── NAV ── -->
 <div class="nav">
   <button class="nb" id="prev">‹</button>
   <div class="nds" id="nds"></div>
-  <div class="nc" id="nc">01 / 08</div>
+  <div class="nc" id="nc">01 / 11</div>
   <button class="nb" id="next">›</button>
 </div>
 </div>
@@ -398,18 +505,55 @@ const slides=document.querySelectorAll('.slide');
 const ndots=[];
 let cur=0,tot=slides.length;
 const ndsEl=document.getElementById('nds'),ncEl=document.getElementById('nc');
+const pbar=document.getElementById('pbar');
+
 for(let i=0;i<tot;i++){
   const d=document.createElement('div');
   d.className='nd'+(i===0?' on':'');
   d.onclick=()=>go(i);
   ndsEl.appendChild(d);ndots.push(d);
 }
+
 function go(n){
-  slides[cur].classList.remove('active');ndots[cur].classList.remove('on');
+  const prev=cur;
+  slides[prev].classList.add('exit-left');
+  slides[prev].classList.remove('active');
+  ndots[prev].classList.remove('on');
+  setTimeout(()=>slides[prev].classList.remove('exit-left'),400);
+
   cur=(n+tot)%tot;
-  slides[cur].classList.add('active');ndots[cur].classList.add('on');
+  slides[cur].classList.add('active');
+  ndots[cur].classList.add('on');
   ncEl.textContent=String(cur+1).padStart(2,'0')+' / '+String(tot).padStart(2,'0');
+
+  // Progress bar
+  pbar.style.width=((cur+1)/tot*100)+'%';
+
+  // Animate counters
+  animateCounters(slides[cur]);
 }
+
+// Counter animation
+function animateCounters(slide){
+  slide.querySelectorAll('.sn2[data-count]').forEach(el=>{
+    const target=el.getAttribute('data-count');
+    const suffix=el.getAttribute('data-suffix')||'';
+    const num=parseInt(target);
+    if(isNaN(num)){el.textContent=target;return}
+    el.classList.add('counting');
+    let start=0;
+    const step=Math.max(1,Math.floor(num/30));
+    const timer=setInterval(()=>{
+      start+=step;
+      if(start>=num){start=num;clearInterval(timer);el.classList.remove('counting')}
+      el.textContent=start.toLocaleString()+suffix;
+    },28);
+  });
+}
+
+// Initial counter setup
+animateCounters(slides[0]);
+
 document.getElementById('next').onclick=()=>go(cur+1);
 document.getElementById('prev').onclick=()=>go(cur-1);
 document.addEventListener('keydown',e=>{
